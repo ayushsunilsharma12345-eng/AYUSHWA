@@ -1,0 +1,6 @@
+{
+  "name": "AI Travel Intelligence Agent - Open Source Project & Report",
+  "description": "An intelligent web-based travel assistance platform with Google GenAI, Three.js 3D Globe, interactive itinerary planner, open source contribution tracking, and downloadable academic PDF report.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
