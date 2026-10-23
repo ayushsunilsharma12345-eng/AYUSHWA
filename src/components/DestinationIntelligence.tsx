@@ -1,5 +1,6 @@
 import React from 'react';
 import { Destination } from '../types/travel';
+import { ImageWithFallback } from './ImageWithFallback';
 import { ShieldCheck, CloudSun, DollarSign, Languages, Compass, AlertCircle, Droplets, PhoneCall } from 'lucide-react';
 
 interface DestinationIntelligenceProps {
@@ -16,10 +17,10 @@ export const DestinationIntelligence: React.FC<DestinationIntelligenceProps> = (
       {/* Destination Hero Image Showcase */}
       {destination.imageUrl && (
         <div className="relative w-full h-56 sm:h-72 rounded-xl overflow-hidden border border-slate-800 shadow-xl group">
-          <img
+          <ImageWithFallback
             src={destination.imageUrl}
             alt={`${destination.name}, ${destination.country}`}
-            referrerPolicy="no-referrer"
+            fallbackType={destination.id as any}
             className="w-full h-full object-cover object-center group-hover:scale-105 transition-transform duration-700"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />

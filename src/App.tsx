@@ -7,6 +7,7 @@ import { ItineraryPlanner } from './components/ItineraryPlanner';
 import { TravelChat } from './components/TravelChat';
 import { OpenSourceHub } from './components/OpenSourceHub';
 import { AcademicReport } from './components/AcademicReport';
+import { ImageWithFallback } from './components/ImageWithFallback';
 import { generateProjectPdf } from './utils/pdfGenerator';
 import { Globe, GitPullRequest, FileText, Download, Compass, Sparkles, Shield, Cpu, MessageSquare, MapPin } from 'lucide-react';
 
@@ -114,10 +115,10 @@ export default function App() {
             {/* Top Hero & Mission Statement with Visual Image Banner */}
             <div className="relative overflow-hidden rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl">
               <div className="absolute inset-0 z-0">
-                <img
-                  src="/src/assets/images/travel_hero_banner_1792583815200.jpg"
+                <ImageWithFallback
+                  src="/images/travel_hero_banner.jpg"
                   alt="AI Travel Intelligence System Platform"
-                  referrerPolicy="no-referrer"
+                  fallbackType="hero"
                   className="w-full h-full object-cover opacity-25"
                 />
                 <div className="absolute inset-0 bg-gradient-to-r from-slate-950 via-slate-950/85 to-transparent" />
@@ -166,16 +167,16 @@ export default function App() {
                   <button
                     key={dest.id}
                     onClick={() => handleSelectDestination(dest)}
-                    className={`relative rounded-xl overflow-hidden h-36 sm:h-44 border transition-all text-left group cursor-pointer ${
+                    className={`relative rounded-xl overflow-hidden h-36 sm:h-44 border transition-all text-left group cursor-pointer bg-slate-900 ${
                       selectedDestination.id === dest.id
                         ? 'border-cyan-400 ring-2 ring-cyan-500/40 shadow-lg'
                         : 'border-slate-800 hover:border-slate-700'
                     }`}
                   >
-                    <img
+                    <ImageWithFallback
                       src={dest.imageUrl}
                       alt={dest.name}
-                      referrerPolicy="no-referrer"
+                      fallbackType={dest.id as any}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/30 to-transparent" />

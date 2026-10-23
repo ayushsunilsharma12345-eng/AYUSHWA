@@ -7,8 +7,9 @@ export const OpenSourceHub: React.FC = () => {
   const [selectedFile, setSelectedFile] = useState<string>('server.ts');
   const [copiedLink, setCopiedLink] = useState<string>('');
 
-  const githubRepoUrl = 'https://github.com/ayush-sharma/ai-travel-intelligence-agent';
-  const prUrl = 'https://github.com/ayush-sharma/ai-travel-intelligence-agent/pull/42';
+  const githubRepoUrl = 'https://github.com/ayushsunilsharma12345-eng/AYUSHWA';
+  const prUrl = 'https://github.com/ayushsunilsharma12345-eng/AYUSHWA/pull/42';
+  const vercelLiveUrl = 'https://ayushwa.vercel.app/';
 
   const handleCopy = (text: string, label: string) => {
     navigator.clipboard.writeText(text);
@@ -25,9 +26,9 @@ export const OpenSourceHub: React.FC = () => {
             <div className="flex items-center gap-2 text-slate-400 text-xs font-mono">
               <span className="text-slate-500">Repository</span>
               <span>/</span>
-              <span className="text-cyan-400 font-semibold">open-source-foundation</span>
+              <span className="text-cyan-400 font-semibold">ayushsunilsharma12345-eng</span>
               <span>/</span>
-              <span className="text-white font-bold text-sm">ai-travel-intelligence-agent</span>
+              <span className="text-white font-bold text-sm">AYUSHWA</span>
               <span className="px-2 py-0.5 rounded-full text-[10px] bg-slate-800 text-slate-300 border border-slate-700">
                 Public
               </span>
@@ -41,6 +42,15 @@ export const OpenSourceHub: React.FC = () => {
           </div>
 
           <div className="flex flex-wrap items-center gap-2">
+            <a
+              href={vercelLiveUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold text-xs rounded-lg transition-all"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              Live Site (ayushwa.vercel.app)
+            </a>
             <button
               onClick={() => handleCopy(githubRepoUrl, 'repo')}
               className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-slate-900 hover:bg-slate-800 text-slate-200 text-xs rounded-lg border border-slate-700 transition-colors"
@@ -303,11 +313,15 @@ export const OpenSourceHub: React.FC = () => {
               </div>
               <div className="flex justify-between border-b border-slate-800 py-1.5">
                 <span className="text-slate-400">Target Repository:</span>
-                <span className="font-mono text-slate-200">ai-travel-intelligence-agent</span>
+                <span className="font-mono text-slate-200">ayushsunilsharma12345-eng/AYUSHWA</span>
               </div>
               <div className="flex justify-between border-b border-slate-800 py-1.5">
                 <span className="text-slate-400">Pull Request:</span>
                 <span className="font-mono text-purple-400">#42 (Merged into main)</span>
+              </div>
+              <div className="flex justify-between border-b border-slate-800 py-1.5">
+                <span className="text-slate-400">Live Vercel Site:</span>
+                <a href="https://ayushwa.vercel.app/" target="_blank" rel="noreferrer" className="font-mono text-cyan-300 hover:underline">ayushwa.vercel.app</a>
               </div>
               <div className="flex justify-between border-b border-slate-800 py-1.5">
                 <span className="text-slate-400">Technologies Applied:</span>
@@ -347,7 +361,7 @@ export const OpenSourceHub: React.FC = () => {
                 <div className="text-cyan-300">git clone {githubRepoUrl}.git</div>
 
                 <div className="text-slate-400 mt-2"># 2. Navigate and install dependencies</div>
-                <div className="text-cyan-300">cd ai-travel-intelligence-agent && npm install</div>
+                <div className="text-cyan-300">cd AYUSHWA && npm install</div>
 
                 <div className="text-slate-400 mt-2"># 3. Launch fullstack dev server</div>
                 <div className="text-cyan-300">npm run dev</div>

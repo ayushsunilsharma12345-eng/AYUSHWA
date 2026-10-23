@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { generateProjectPdf } from '../utils/pdfGenerator';
+import { ImageWithFallback } from './ImageWithFallback';
 import { Download, Printer, Copy, Check, FileText, Share2, Layers, Cpu, ShieldCheck, CheckCircle2, GitPullRequest, ExternalLink, Globe } from 'lucide-react';
 
 export const AcademicReport: React.FC = () => {
@@ -15,7 +16,8 @@ export const AcademicReport: React.FC = () => {
 
 **Contributor:** Ayush Sharma (ayushsunilsharma12345@gmail.com)  
 **Pull Request:** #42 (Merged into main)  
-**Target Repository:** https://github.com/ayush-sharma/ai-travel-intelligence-agent  
+**Target Repository:** https://github.com/ayushsunilsharma12345-eng/AYUSHWA  
+**Live Deployment:** https://ayushwa.vercel.app/  
 **License:** Apache-2.0  
 
 ---
@@ -122,8 +124,8 @@ The project uses a Vite-based frontend with React for the user interface, while 
             </div>
             <div>
               <div className="text-slate-400 print:text-gray-500">Target Open-Source Repository:</div>
-              <div className="font-mono text-cyan-300 font-bold print:text-blue-700">github.com/ayush-sharma/ai-travel-intelligence-agent</div>
-              <div className="text-emerald-400 font-semibold mt-0.5 print:text-green-700">Pull Request #42: Merged into main</div>
+              <div className="font-mono text-cyan-300 font-bold print:text-blue-700">github.com/ayushsunilsharma12345-eng/AYUSHWA</div>
+              <div className="text-emerald-400 font-semibold mt-0.5 print:text-green-700">Pull Request #42: Merged into main (ayushwa.vercel.app)</div>
             </div>
           </div>
         </header>
@@ -155,11 +157,11 @@ The project uses a Vite-based frontend with React for the user interface, while 
         </section>
 
         {/* System Interface Showcase Figure */}
-        <div className="mt-8 rounded-xl overflow-hidden border border-slate-800 print:border-gray-300">
-          <img
-            src="/src/assets/images/travel_hero_banner_1792583815200.jpg"
+        <div className="mt-8 rounded-xl overflow-hidden border border-slate-800 print:border-gray-300 bg-slate-900">
+          <ImageWithFallback
+            src="/images/travel_hero_banner.jpg"
             alt="AI Travel Intelligence Agent Interface Overview"
-            referrerPolicy="no-referrer"
+            fallbackType="hero"
             className="w-full h-56 sm:h-72 object-cover object-center"
           />
           <div className="p-2.5 bg-slate-900 border-t border-slate-800 text-[11px] text-slate-400 text-center print:bg-gray-100 print:text-gray-700">

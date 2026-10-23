@@ -15,7 +15,7 @@ export const POPULAR_DESTINATIONS: Destination[] = [
     currency: 'Japanese Yen (JPY)',
     language: 'Japanese',
     popularActivities: ['Sushi Omakase', 'Tea Ceremony', 'High-Speed Shinkansen Ride', 'Rooftop Observatories'],
-    imageUrl: '/src/assets/images/tokyo_destination_1792583816197.jpg',
+    imageUrl: '/images/tokyo_destination.jpg',
   },
   {
     id: 'paris',
@@ -31,7 +31,7 @@ export const POPULAR_DESTINATIONS: Destination[] = [
     currency: 'Euro (EUR)',
     language: 'French',
     popularActivities: ['Seine River Cruise', 'Pastry Crawl', 'Louvre Masterpieces', 'Palace of Versailles'],
-    imageUrl: '/src/assets/images/paris_destination_1792583817332.jpg',
+    imageUrl: '/images/paris_destination.jpg',
   },
   {
     id: 'newyork',
@@ -47,7 +47,7 @@ export const POPULAR_DESTINATIONS: Destination[] = [
     currency: 'US Dollar (USD)',
     language: 'English',
     popularActivities: ['Broadway Show', 'Summit One Vanderbilt', 'Brooklyn Bridge Walk', 'Chelsea Market'],
-    imageUrl: '/src/assets/images/travel_hero_banner_1792583815200.jpg',
+    imageUrl: '/images/travel_hero_banner.jpg',
   },
   {
     id: 'bali',
@@ -63,7 +63,7 @@ export const POPULAR_DESTINATIONS: Destination[] = [
     currency: 'Indonesian Rupiah (IDR)',
     language: 'Indonesian & Balinese',
     popularActivities: ['Sunrise Mt. Batur Trek', 'Yoga & Wellness', 'Traditional Kecak Dance', 'Snorkeling in Nusa Penida'],
-    imageUrl: '/src/assets/images/bali_destination_1792583817842.jpg',
+    imageUrl: '/images/bali_destination.jpg',
   },
   {
     id: 'reykjavik',
@@ -79,7 +79,7 @@ export const POPULAR_DESTINATIONS: Destination[] = [
     currency: 'Icelandic Króna (ISK)',
     language: 'Icelandic & English',
     popularActivities: ['Northern Lights Hunt', 'Glacier Hiking', 'Geothermal Spa Bathing', 'Whale Watching'],
-    imageUrl: '/src/assets/images/reykjavik_destination_1792583818339.jpg',
+    imageUrl: '/images/reykjavik_destination.jpg',
   },
   {
     id: 'cairo',

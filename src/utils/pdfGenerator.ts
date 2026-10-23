@@ -61,7 +61,7 @@ export function generateProjectPdf() {
   doc.text('Contributor: Ayush Sharma', margin + 4, y + 6);
   doc.text('Email: ayushsunilsharma12345@gmail.com', margin + 4, y + 11);
   doc.text('Role: Open-Source Contributor & Fullstack Engineer', margin + 4, y + 16);
-  doc.text('Repository: github.com/ayush-sharma/ai-travel-intelligence-agent', margin + 4, y + 21);
+  doc.text('Repository: github.com/ayushsunilsharma12345-eng/AYUSHWA', margin + 4, y + 21);
 
   doc.text('Submission Date: October 2026', margin + 95, y + 6);
   doc.text('Pull Request: #42 (Merged into main)', margin + 95, y + 11);
@@ -160,7 +160,7 @@ export function generateProjectPdf() {
   doc.text('VERIFIED BY: OPEN-SOURCE REVIEW COMMITTEE', margin + 4, y + 6);
   doc.setFont('helvetica', 'normal');
   doc.text('Pull Request #42 successfully merged into main branch. All CI verification tests passed.', margin + 4, y + 11);
-  doc.text('Official Repository: https://github.com/ayush-sharma/ai-travel-intelligence-agent', margin + 4, y + 16);
+  doc.text('Official Repository: https://github.com/ayushsunilsharma12345-eng/AYUSHWA', margin + 4, y + 16);
 
   // Save the document
   doc.save('AI_Travel_Intelligence_Agent_OpenSource_Report.pdf');
