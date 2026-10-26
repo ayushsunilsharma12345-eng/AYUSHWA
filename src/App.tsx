@@ -8,17 +8,24 @@ import { TravelChat } from './components/TravelChat';
 import { OpenSourceHub } from './components/OpenSourceHub';
 import { AcademicReport } from './components/AcademicReport';
 import { ImageWithFallback } from './components/ImageWithFallback';
+import { TransportComparator } from './components/TransportComparator';
 import { generateProjectPdf } from './utils/pdfGenerator';
-import { Globe, GitPullRequest, FileText, Download, Compass, Sparkles, Shield, Cpu, MessageSquare, MapPin } from 'lucide-react';
+import { Globe, GitPullRequest, FileText, Download, Compass, Sparkles, Shield, Cpu, MessageSquare, MapPin, ArrowLeftRight } from 'lucide-react';
 
 export default function App() {
-  const [activeTab, setActiveTab] = useState<'agent' | 'opensource' | 'report'>('agent');
+  const [activeTab, setActiveTab] = useState<'agent' | 'compare' | 'opensource' | 'report'>('agent');
   const [selectedDestination, setSelectedDestination] = useState<Destination>(POPULAR_DESTINATIONS[0]);
   const [plannerDestination, setPlannerDestination] = useState<string>(POPULAR_DESTINATIONS[0].name);
+  const [compareOrigin, setCompareOrigin] = useState<string>('Tokyo');
+  const [compareDestination, setCompareDestination] = useState<string>('Kyoto');
 
   const handleSelectDestination = (dest: Destination) => {
     setSelectedDestination(dest);
     setPlannerDestination(dest.name);
+    if (dest.name.toLowerCase() === compareOrigin.toLowerCase()) {
+      setCompareOrigin(dest.name.toLowerCase() === 'tokyo' ? 'Kyoto' : 'Tokyo');
+    }
+    setCompareDestination(dest.name);
   };
 
   const handlePlanForDestination = (cityName: string) => {
@@ -28,6 +35,15 @@ export default function App() {
     if (plannerEl) {
       plannerEl.scrollIntoView({ behavior: 'smooth' });
     }
+  };
+
+  const handleCompareForDestination = (cityName: string) => {
+    if (cityName.toLowerCase() === compareOrigin.toLowerCase()) {
+      setCompareOrigin(cityName.toLowerCase() === 'tokyo' ? 'Kyoto' : 'London');
+    }
+    setCompareDestination(cityName);
+    setActiveTab('compare');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
@@ -47,7 +63,7 @@ export default function App() {
                   Open Source
                 </span>
               </div>
-              <p className="text-[11px] text-slate-400 -mt-0.5 hidden sm:block">Powered by Google GenAI (gemini-3.8-flash) & Three.js WebGL</p>
+              <p className="text-[11px] text-slate-400 -mt-0.5 hidden sm:block">Powered by Google GenAI & Three.js WebGL</p>
             </div>
           </div>
 
@@ -63,6 +79,21 @@ export default function App() {
             >
               <Compass className="w-4 h-4" />
               <span className="hidden md:inline">Travel Agent &</span> 3D Globe
+            </button>
+
+            <button
+              onClick={() => setActiveTab('compare')}
+              className={`flex items-center gap-1.5 px-3 py-1.5 sm:px-4 sm:py-2 text-xs sm:text-sm font-semibold rounded-xl transition-all ${
+                activeTab === 'compare'
+                  ? 'bg-cyan-500 text-slate-950 font-bold shadow-md shadow-cyan-500/20'
+                  : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900'
+              }`}
+            >
+              <ArrowLeftRight className="w-4 h-4" />
+              <span>Fare & Route Compare</span>
+              <span className="hidden sm:inline px-1.5 py-0.2 text-[10px] bg-emerald-950 text-emerald-300 rounded font-bold border border-emerald-800">
+                Live
+              </span>
             </button>
 
             <button
@@ -112,7 +143,6 @@ export default function App() {
         {activeTab === 'agent' && (
           <div className="space-y-8 animate-fadeIn">
             {/* Top Hero & Mission Statement */}
-            {/* Top Hero & Mission Statement with Visual Image Banner */}
             <div className="relative overflow-hidden rounded-3xl bg-slate-950 border border-slate-800 shadow-2xl">
               <div className="absolute inset-0 z-0">
                 <ImageWithFallback
@@ -219,6 +249,15 @@ export default function App() {
               <DestinationIntelligence
                 destination={selectedDestination}
                 onPlanTrip={handlePlanForDestination}
+                onCompareTransport={handleCompareForDestination}
+              />
+            </section>
+
+            {/* Multi-Modal Transit & Fare Comparison */}
+            <section id="transit-compare-section">
+              <TransportComparator
+                initialOrigin={compareOrigin}
+                initialDestination={compareDestination}
               />
             </section>
 
@@ -234,14 +273,37 @@ export default function App() {
           </div>
         )}
 
-        {/* Tab 2: Open Source Contribution & PR Hub */}
+        {/* Tab 2: Dedicated Live Transport & Fare Comparison */}
+        {activeTab === 'compare' && (
+          <div className="space-y-8 animate-fadeIn">
+            <div className="bg-gradient-to-r from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 rounded-2xl p-6 sm:p-8">
+              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-800/80 text-cyan-300 text-xs font-semibold mb-3">
+                <ArrowLeftRight className="w-3.5 h-3.5 text-cyan-400" />
+                Live Multi-Modal Transit Intelligence
+              </div>
+              <h1 className="text-2xl sm:text-3xl font-black text-white">
+                Transit & Fare Compare Engine
+              </h1>
+              <p className="text-slate-300 text-sm mt-2 max-w-3xl leading-relaxed">
+                Compare door-to-door transit options across Flights, High-Speed Trains, Buses, and Driving. Our Gemini 3.8 Flash intelligence model calculates real-time price ranges, transit hours, CO2 emissions, and provides direct booking redirects to official aggregators (Google Flights, Trainline, Rome2rio).
+              </p>
+            </div>
+
+            <TransportComparator
+              initialOrigin={compareOrigin}
+              initialDestination={compareDestination}
+            />
+          </div>
+        )}
+
+        {/* Tab 3: Open Source Contribution & PR Hub */}
         {activeTab === 'opensource' && (
           <div className="animate-fadeIn">
             <OpenSourceHub />
           </div>
         )}
 
-        {/* Tab 3: Academic Submission Report & PDF Generator */}
+        {/* Tab 4: Academic Submission Report & PDF Generator */}
         {activeTab === 'report' && (
           <div className="animate-fadeIn">
             <AcademicReport />
@@ -262,6 +324,13 @@ export default function App() {
           </div>
 
           <div className="flex flex-wrap items-center justify-center gap-4 text-slate-400">
+            <button
+              onClick={() => setActiveTab('compare')}
+              className="hover:text-cyan-400 transition-colors"
+            >
+              Fare Compare
+            </button>
+            <span>•</span>
             <button
               onClick={() => setActiveTab('opensource')}
               className="hover:text-cyan-400 transition-colors"

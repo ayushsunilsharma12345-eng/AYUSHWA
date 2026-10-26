@@ -64,3 +64,69 @@ export interface FileDiff {
   deletions: number;
   patch: string;
 }
+
+export interface TransportOption {
+  id: string;
+  mode: 'flight' | 'train' | 'bus' | 'car';
+  title: string;
+  provider: string;
+  priceUsd: number;
+  priceFormatted: string;
+  duration: string;
+  durationMinutes: number;
+  co2Kg: number;
+  ecoScore: 'A+' | 'A' | 'B' | 'C' | 'D';
+  convenienceScore: number;
+  departureFrequency: string;
+  pros: string[];
+  cons: string[];
+  bookingUrl: string;
+  providerName: string;
+  secondaryBookingUrl?: string;
+  secondaryProviderName?: string;
+  ticketType?: string;
+  originalLocalPrice?: string;
+  iataRoute?: string;
+  isBestOption?: boolean;
+  bestReason?: string;
+}
+
+export interface OfficialTicketGateway {
+  name: string;
+  mode: 'flight' | 'train' | 'bus' | 'car' | 'all';
+  url: string;
+  description: string;
+  badge: string;
+}
+
+export interface TransportComparisonResult {
+  origin: string;
+  destination: string;
+  originIata?: string;
+  destinationIata?: string;
+  originCountry?: string;
+  destinationCountry?: string;
+  localCurrency?: string;
+  exchangeRateNote?: string;
+  liveDataSources?: string[];
+  date: string;
+  passengers: number;
+  preference: string;
+  distanceKm: number;
+  isLiveVerified: boolean;
+  liveFetchedAt: string;
+  responseTimeMs: number;
+  officialGateways: OfficialTicketGateway[];
+  aiVerdict: {
+    recommendedMode: 'flight' | 'train' | 'bus' | 'car';
+    headline: string;
+    detailedReasoning: string;
+    bestBookingUrl: string;
+    bestProvider: string;
+    savingsComparedToFlight?: string;
+    co2SavedKg?: number;
+  };
+  options: TransportOption[];
+}
+
+

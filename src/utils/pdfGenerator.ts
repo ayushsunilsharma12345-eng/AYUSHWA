@@ -117,8 +117,8 @@ export function generateProjectPdf() {
   addParagraph(
     'The architecture follows a decoupled client-server model engineered for low latency and high security:\n' +
     '• Frontend Layer: Built with React 19, TypeScript, and Vite. Utilizes Three.js for hardware-accelerated 3D WebGL rendering of the Earth sphere and Motion for smooth user interface transitions.\n' +
-    '• API & Middleware Layer: Built on Express.js and TypeScript, serving RESTful endpoints (/api/chat, /api/plan, /api/intelligence) and hosting Vite middleware in development.\n' +
-    '• AI Inference Engine: Google GenAI SDK (@google/genai) executing prompts on the gemini-3.8-flash model with strict JSON schema constraints for multi-day itineraries.\n' +
+    '• API & Middleware Layer: Built on Express.js and TypeScript, serving RESTful endpoints (/api/chat, /api/plan, /api/transport-compare) and hosting Vite middleware in development.\n' +
+    '• AI Inference Engine: Google GenAI SDK (@google/genai) executing prompts on the gemini-3.8-flash model with strict JSON schema constraints for itineraries and transport recommendations.\n' +
     '• Security & Key Management: The Gemini API key is managed strictly on the server via environment variables, avoiding any exposure to client browser bundles.'
   );
 
@@ -128,6 +128,7 @@ export function generateProjectPdf() {
     'As part of the open-source community effort, the following contributions were developed, verified, and merged into the main upstream repository:\n' +
     '• 3D Earth Globe Visualization: Implemented a custom Three.js canvas featuring spherical latitude/longitude conversion, raycasting for pin selection, and atmospheric glowing shader mesh.\n' +
     '• Multi-Day Itinerary Engine: Implemented structured travel planning with morning/afternoon/evening schedule segmenting, budget calculations, and transit logistics.\n' +
+    '• Multi-Modal Transit & Fare Comparator: Real-time cost comparison across Flights, High-Speed Trains, Buses, and Driving, calculating CO2 savings and generating deep-linked booking redirect URLs.\n' +
     '• Destination Intelligence Matrix: Built safety score metrics, climate windows, currency data, and emergency helplines across key global destinations.\n' +
     '• Pull Request ID: #42 | Merge Hash: 8f4d92a | Tests: 14 passing automated tests.'
   );
@@ -137,10 +138,11 @@ export function generateProjectPdf() {
   addParagraph(
     'The AI Travel Intelligence Agent addresses diverse real-world use cases across commercial and civic sectors:\n' +
     '1. Personalized Tourism & Vacation Planning: Custom day-by-day itineraries tailored to budget tiers (backpacker, moderate, luxury) and traveler compositions.\n' +
-    '2. Solo Traveler Safety & Advisory: Real-time city safety metrics, emergency contact numbers, and drinking water safety ratings.\n' +
-    '3. Eco-Friendly & Sustainable Tourism: Route optimization and regional public transit suggestions that reduce single-passenger carbon footprint.\n' +
-    '4. Corporate & Remote Work Relocation: Fast assessments of local currency, spoken languages, and connectivity logistics for digital nomads.\n' +
-    '5. Educational Geographic Exploration: Interactive 3D planetary exploration for geography students, cultural learners, and schools.'
+    '2. Multi-Modal Fare Comparison & Booking: Real-time price comparison across air, rail, bus, and road transit with direct redirect booking links to Google Flights, Trainline, and Rome2rio.\n' +
+    '3. Solo Traveler Safety & Advisory: Real-time city safety metrics, emergency contact numbers, and drinking water safety ratings.\n' +
+    '4. Eco-Friendly & Sustainable Tourism: Door-to-door carbon emission metrics highlighting eco-superior rail and bus travel options.\n' +
+    '5. Corporate & Remote Work Relocation: Fast assessments of local currency, spoken languages, and connectivity logistics for digital nomads.\n' +
+    '6. Educational Geographic Exploration: Interactive 3D planetary exploration for geography students, cultural learners, and schools.'
   );
 
   // 6. Conclusion

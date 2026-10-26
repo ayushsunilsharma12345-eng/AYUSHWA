@@ -6,11 +6,13 @@ import { ShieldCheck, CloudSun, DollarSign, Languages, Compass, AlertCircle, Dro
 interface DestinationIntelligenceProps {
   destination: Destination;
   onPlanTrip: (destName: string) => void;
+  onCompareTransport?: (destName: string) => void;
 }
 
 export const DestinationIntelligence: React.FC<DestinationIntelligenceProps> = ({
   destination,
   onPlanTrip,
+  onCompareTransport,
 }) => {
   return (
     <div className="bg-slate-900 border border-slate-800 rounded-2xl p-6 shadow-xl space-y-6">
@@ -58,13 +60,24 @@ export const DestinationIntelligence: React.FC<DestinationIntelligenceProps> = (
           <p className="text-slate-300 text-sm mt-1 max-w-2xl">{destination.description}</p>
         </div>
 
-        <button
-          onClick={() => onPlanTrip(destination.name)}
-          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold rounded-xl shadow-lg shadow-cyan-500/20 transition-all cursor-pointer whitespace-nowrap self-start md:self-auto"
-        >
-          <Compass className="w-4 h-4 text-slate-950" />
-          Generate AI Itinerary
-        </button>
+        <div className="flex items-center gap-2 self-start md:self-auto flex-wrap">
+          {onCompareTransport && (
+            <button
+              onClick={() => onCompareTransport(destination.name)}
+              className="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-slate-800 hover:bg-slate-700 text-cyan-300 font-bold rounded-xl border border-cyan-700/60 transition-all cursor-pointer text-xs sm:text-sm shadow-md"
+            >
+              Compare Fares & Transit ➔
+            </button>
+          )}
+
+          <button
+            onClick={() => onPlanTrip(destination.name)}
+            className="inline-flex items-center justify-center gap-2 px-5 py-2.5 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-bold rounded-xl shadow-lg shadow-cyan-500/20 transition-all cursor-pointer whitespace-nowrap text-xs sm:text-sm"
+          >
+            <Compass className="w-4 h-4 text-slate-950" />
+            Generate AI Itinerary
+          </button>
+        </div>
       </div>
 
       {/* Grid of Key Intelligence Indicators */}

@@ -209,9 +209,10 @@ The project uses a Vite-based frontend with React for the user interface, while 
 
               {/* Node 3: Express Server */}
               <rect x="250" y="130" width="160" height="85" rx="10" fill="#0f172a" stroke="#34d399" strokeWidth="2" />
-              <text x="330" y="160" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">Express Server</text>
-              <text x="330" y="178" fill="#94a3b8" fontSize="10" textAnchor="middle">TypeScript / Node.js</text>
-              <text x="330" y="195" fill="#34d399" fontSize="9" textAnchor="middle">/api/plan & /api/chat</text>
+              <text x="330" y="157" fill="#ffffff" fontSize="12" fontWeight="bold" textAnchor="middle">Express Server</text>
+              <text x="330" y="174" fill="#94a3b8" fontSize="10" textAnchor="middle">TypeScript / Node.js</text>
+              <text x="330" y="190" fill="#34d399" fontSize="8.5" textAnchor="middle">/api/plan, /api/chat,</text>
+              <text x="330" y="202" fill="#34d399" fontSize="8.5" textAnchor="middle">/api/transport-compare</text>
 
               {/* Arrow 2 */}
               <line x1="410" y1="172" x2="490" y2="172" stroke="#34d399" strokeWidth="2" />
@@ -242,16 +243,19 @@ The project uses a Vite-based frontend with React for the user interface, while 
               <strong className="text-white print:text-black">1. Personalized Leisure & Tourism Planning:</strong> Eliminates hundreds of fragmented browser searches by generating tailored day-by-day itineraries based on traveler budgets, duration, companion types, and preferred pace.
             </div>
             <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800/80 print:bg-white print:border-gray-200">
-              <strong className="text-white print:text-black">2. Solo Traveler Safety & Emergency Support:</strong> Provides real-time safety scores, local tourist police contacts, drinking water suitability, and cultural etiquette to ensure traveler security in foreign destinations.
+              <strong className="text-white print:text-black">2. Multi-Modal Fare Comparison & Booking Redirects:</strong> Evaluates live price ranges, door-to-door transit times, and carbon footprints across flights, high-speed rail, intercity coaches, and cars with prefilled deep links to Google Flights, Trainline, and Rome2rio.
             </div>
             <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800/80 print:bg-white print:border-gray-200">
-              <strong className="text-white print:text-black">3. Eco-Friendly & Sustainable Tourism:</strong> Dynamically recommends multi-modal public transit passes, metro routes, and electric rail journeys over carbon-intensive single-passenger rides.
+              <strong className="text-white print:text-black">3. Solo Traveler Safety & Emergency Support:</strong> Provides real-time safety scores, local tourist police contacts, drinking water suitability, and cultural etiquette to ensure traveler security in foreign destinations.
             </div>
             <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800/80 print:bg-white print:border-gray-200">
-              <strong className="text-white print:text-black">4. Corporate Travel & Digital Nomad Relocation:</strong> Assesses living expenses, currency exchange rates, high-speed connectivity zones, and visa prerequisites for professionals working remotely.
+              <strong className="text-white print:text-black">4. Eco-Friendly & Sustainable Tourism:</strong> Dynamically recommends multi-modal public transit passes, metro routes, and electric rail journeys over carbon-intensive single-passenger rides.
             </div>
             <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800/80 print:bg-white print:border-gray-200">
-              <strong className="text-white print:text-black">5. Educational & Geographic Exploration:</strong> Provides an engaging Three.js 3D Earth visualization tool for students, academic researchers, and geography classrooms to explore world heritage landmarks.
+              <strong className="text-white print:text-black">5. Corporate Travel & Digital Nomad Relocation:</strong> Assesses living expenses, currency exchange rates, high-speed connectivity zones, and visa prerequisites for professionals working remotely.
+            </div>
+            <div className="p-3 bg-slate-900/60 rounded-xl border border-slate-800/80 print:bg-white print:border-gray-200">
+              <strong className="text-white print:text-black">6. Educational & Geographic Exploration:</strong> Provides an engaging Three.js 3D Earth visualization tool for students, academic researchers, and geography classrooms to explore world heritage landmarks.
             </div>
           </div>
         </section>
