@@ -1532,38 +1532,32 @@ Return realistic 1-adult one-way advance ticket prices in USD and concise carrie
 // ============================================================================
 const TRAVEL_AGENT_PROMPT = `You are the "AI Travel Intelligence Agent", an advanced AI assistant created as part of an open-source travel intelligence platform.
 Your objective is to provide precise, inspiring, culturally aware, and safe travel guidance to travelers worldwide.
-Always format your responses with structured headings, bullet points, budget estimates in USD, practical local tips, and safety advisories when relevant.
+Use clear headings and practical local tips when useful. Give budget estimates only as rough estimates, state assumptions, and avoid false precision.
+You do not have live web access or verified current travel data. Do not claim that advisories, visa rules, health requirements, safety conditions, opening hours, prices, or transit details are current or verified. For time-sensitive questions, say that they need confirmation from official sources and name the relevant authority where possible. Never invent destination-specific safety ratings or present unsupported claims as verified.
 Maintain an encouraging, knowledgeable, and reliable tone.`;
 
-export async function handleTravelChat({ message, destination }) {
-  const getFallbackReply = () => {
-    const lower = String(message || '').toLowerCase();
-    if (lower.includes('itinerary') || lower.includes('day')) {
-      return (
-        `### Suggested Itinerary Outline (${destination || 'Global Hub'}):\n` +
-        `**Day 1: Arrival & Historic Core**\n- Morning: Check-in, landmark orientation walking tour.\n- Afternoon: Iconic architectural marvels and heritage museum.\n- Evening: Sunset river walk and regional culinary tasting.\n\n` +
-        `**Day 2: Cultural Exploration & Hidden Gems**\n- Morning: Vibrant artisan districts & botanical gardens.\n- Afternoon: Local cooking workshop or craft studio visit.\n- Evening: Rooftop skyline view & traditional live music.\n\n` +
-        `**Day 3: Nature Excursion & Leisure**\n- Morning: Scenic viewpoint hike or coastal ferry.\n- Afternoon: Souvenir shopping in pedestrian arcades.\n- Evening: Farewell dinner at a neighborhood bistro.`
-      );
-    }
-    return (
-      `Here is your Travel Intelligence briefing for ${destination || 'your destination'}:\n\n` +
-      `• **Top Recommendation**: Explore early morning to avoid crowds and experience authentic local markets.\n` +
-      `• **Estimated Daily Budget**: $65 - $140 / day (including accommodation, public transit, and meals).\n` +
-      `• **Local Etiquette**: Respect local cultural norms, tipping guidelines, and dress codes for historic and sacred sites.\n` +
-      `• **Transit Tip**: Buy rechargeable regional transit passes for maximum savings and contactless boarding.\n` +
-      `• **Safety Advisory**: Rated Low Risk. Keep photocopies of travel documents in cloud storage.`
-    );
-  };
+export async function handleTravelChat({ message, destination, history = [] }) {
+  const safeHistory = Array.isArray(history)
+    ? history
+        .filter((turn) => turn && ['user', 'assistant'].includes(turn.role) && typeof turn.content === 'string')
+        .slice(-20)
+        .map((turn) => ({
+          role: turn.role === 'assistant' ? 'model' : 'user',
+          parts: [{ text: turn.content.slice(0, 4000) }],
+        }))
+    : [];
 
   const ai = getAiClient();
   if (ai) {
     try {
-      const prompt = `Context: Destination is ${destination || 'Global travel'}.\nUser message: ${message}`;
+      const contents = [
+        ...safeHistory,
+        { role: 'user', parts: [{ text: `Context: Destination is ${destination || 'Global travel'}.\nUser message: ${message}` }] },
+      ];
       const timeoutPromise = new Promise((resolve) => setTimeout(() => resolve(null), 8500));
       const aiPromise = ai.models.generateContent({
         model: 'gemini-3.1-flash-lite',
-        contents: prompt,
+        contents,
         config: {
           systemInstruction: TRAVEL_AGENT_PROMPT,
           temperature: 0.7,
@@ -1578,7 +1572,10 @@ export async function handleTravelChat({ message, destination }) {
     }
   }
 
-  return { reply: getFallbackReply(), source: 'travel-intelligence-engine' };
+  return {
+    reply: 'I could not generate a reliable answer right now because the AI service is unavailable. Please try again later. For current visa, health, or safety requirements, check the relevant government or official travel authority.',
+    source: 'travel-intelligence-engine-fallback',
+  };
 }
 
 export async function handleTravelPlan({
