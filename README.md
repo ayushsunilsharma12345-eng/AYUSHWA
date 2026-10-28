@@ -22,6 +22,10 @@ React, TypeScript, Vite, Tailwind CSS, Three.js, Express, @google/genai, jsPDF, 
 ## Contributing
 Fork the repo, create a branch, make your change, and open a pull request.
 
+   ## Contributors
+
+   - [Parth Shelar](https://github.com/patty2005-coder)
+
 ## Limitations
 Safety scores are curated values, not live data. AI itineraries may be inaccurate.
 
