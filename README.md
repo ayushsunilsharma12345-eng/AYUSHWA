@@ -26,4 +26,4 @@ Fork the repo, create a branch, make your change, and open a pull request.
 Safety scores are curated values, not live data. AI itineraries may be inaccurate.
 
 ## License
-MIT
+Apache 2.0
