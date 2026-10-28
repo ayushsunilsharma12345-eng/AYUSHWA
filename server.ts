@@ -22,12 +22,12 @@ app.use(express.json());
 
 // API Routes (shared with Vercel Serverless Functions in /api)
 app.post('/api/chat', async (req, res) => {
-  const { message, destination } = req.body || {};
+  const { message, destination, history } = req.body || {};
   if (!message || typeof message !== 'string') {
     return res.status(400).json({ error: 'Message is required' });
   }
   try {
-    const result = await handleTravelChat({ message, destination });
+    const result = await handleTravelChat({ message, destination, history });
     return res.json(result);
   } catch (err) {
     console.error('Error in /api/chat:', err);

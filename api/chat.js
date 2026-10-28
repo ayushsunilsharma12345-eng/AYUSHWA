@@ -21,6 +21,7 @@ export default async function handler(req, res) {
     const result = await handleTravelChat({
       message: body.message,
       destination: body.destination,
+      history: body.history,
     });
     return res.status(200).json(result);
   } catch (err) {

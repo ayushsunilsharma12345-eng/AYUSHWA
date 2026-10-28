@@ -1,26 +1,36 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChatMessage } from '../types/travel';
-import { Send, Bot, User, Sparkles, Loader2, Compass, Shield, Coins, AlertCircle } from 'lucide-react';
+import { Send, Bot, User, Sparkles, Loader2, Compass } from 'lucide-react';
+
+const CHAT_MODEL = 'gemini-3.1-flash-lite';
+
+const createWelcomeMessage = (destination?: string): ChatMessage => ({
+  id: 'init-1',
+  role: 'assistant',
+  content: `Hello! I am your AI Travel Intelligence Agent. Ask me anything about ${
+    destination || 'global destinations'
+  }—from custom itineraries and cultural tips to transit and travel logistics. For time-sensitive details such as visas, advisories, and health requirements, verify with official sources.`,
+  timestamp: 'Just now',
+  source: 'travel-chat',
+});
 
 interface TravelChatProps {
   currentDestination?: string;
 }
 
 export const TravelChat: React.FC<TravelChatProps> = ({ currentDestination }) => {
-  const [messages, setMessages] = useState<ChatMessage[]>([
-    {
-      id: 'init-1',
-      role: 'assistant',
-      content: `Hello! I am your AI Travel Intelligence Agent. Ask me anything about ${
-        currentDestination || 'global destinations'
-      }—from custom itineraries and hidden cultural gems, to transit passes, visa requirements, and safety guidelines.`,
-      timestamp: 'Just now',
-      source: 'gemini-3.8-flash',
-    },
-  ]);
+  const [messages, setMessages] = useState<ChatMessage[]>([createWelcomeMessage(currentDestination)]);
   const [input, setInput] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const requestIdRef = useRef(0);
+
+  useEffect(() => {
+    requestIdRef.current += 1;
+    setMessages([createWelcomeMessage(currentDestination)]);
+    setInput('');
+    setLoading(false);
+  }, [currentDestination]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -51,6 +61,11 @@ export const TravelChat: React.FC<TravelChatProps> = ({ currentDestination }) =>
     setMessages((prev) => [...prev, userMsg]);
     setInput('');
     setLoading(true);
+    const requestId = ++requestIdRef.current;
+    const history = messages
+      .filter((message) => message.id !== 'init-1')
+      .slice(-20)
+      .map(({ role, content }) => ({ role, content }));
 
     try {
       const response = await fetch('/api/chat', {
@@ -59,30 +74,39 @@ export const TravelChat: React.FC<TravelChatProps> = ({ currentDestination }) =>
         body: JSON.stringify({
           message: textToSend,
           destination: currentDestination,
+          history,
         }),
       });
 
-      const data = await response.json();
+      const data = await response.json().catch(() => ({}));
+      if (!response.ok) {
+        throw new Error(typeof data.error === 'string' ? data.error : `Request failed (${response.status})`);
+      }
+      if (requestId !== requestIdRef.current) return;
+      if (typeof data.reply !== 'string' || !data.reply.trim()) {
+        throw new Error('The travel service returned an empty response.');
+      }
       const assistantMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
+        id: `${Date.now()}-assistant`,
         role: 'assistant',
-        content: data.reply || data.fallback || 'I have analyzed your query and updated your travel brief.',
+        content: data.reply,
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        source: data.source || 'gemini-3.8-flash',
+        source: data.source || 'travel-intelligence-engine',
       };
       setMessages((prev) => [...prev, assistantMsg]);
     } catch (err) {
-      console.error(err);
+      if (requestId !== requestIdRef.current) return;
+      console.error('Travel chat request failed:', err);
       const fallbackMsg: ChatMessage = {
-        id: (Date.now() + 1).toString(),
+        id: `${Date.now()}-error`,
         role: 'assistant',
-        content: `Travel Intelligence Update for ${currentDestination || 'your trip'}:\n• High safety ranking overall; maintain routine awareness in transport hubs.\n• Recommended daily pocket budget: $60-$120 USD.\n• Purchase transit cards upon arrival for seamless contactless subway/bus travel.`,
+        content: 'I could not get a response from the travel service. Your question is still in the chat; please try sending it again.',
         timestamp: new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }),
-        source: 'travel-intelligence-local',
+        source: 'request-error',
       };
       setMessages((prev) => [...prev, fallbackMsg]);
     } finally {
-      setLoading(false);
+      if (requestId === requestIdRef.current) setLoading(false);
     }
   };
 
@@ -98,7 +122,7 @@ export const TravelChat: React.FC<TravelChatProps> = ({ currentDestination }) =>
             <div className="flex items-center gap-2">
               <h3 className="font-bold text-white text-base">Travel Intelligence Co-Pilot</h3>
               <span className="inline-flex items-center px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-950 text-emerald-400 border border-emerald-800">
-                Online • Gemini 3.8 Flash
+                {CHAT_MODEL} • fallback enabled
               </span>
             </div>
             <p className="text-xs text-slate-400">Contextual advisor for destination questions & logistics</p>
