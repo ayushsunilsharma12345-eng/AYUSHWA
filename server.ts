@@ -37,7 +37,7 @@ app.post('/api/chat', async (req, res) => {
 
 app.post('/api/plan', async (req, res) => {
   const { destination, days, budget, style, companions } = req.body || {};
-  if (!destination) {
+  if (typeof destination !== 'string' || !destination.trim()) {
     return res.status(400).json({ error: 'Destination is required' });
   }
   try {
